@@ -21,8 +21,9 @@ resource "aws_internet_gateway" "app_igw" {
 resource "aws_subnet" "public_subnet" {
   count             = length(var.availability_zones)
   vpc_id            = aws_vpc.app_vpc.id
-  cidr_block        = cidrsubnet(aws_vpc.app_vpc.id, 8, count.index) # change last octet per subnet
+  cidr_block        = cidrsubnet(var.vpc_cidr_block, 8, count.index) # change last octet per subnet
   availability_zone = var.availability_zones[count.index]
+  map_public_ip_on_launch = true
 
 }
 
