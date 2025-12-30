@@ -6,6 +6,8 @@ module "vpc" {
   source             = "./modules/networking/"
   vpc_cidr_block     = var.vpc_cidr_block
   availability_zones = local.azs
+  az_count           = var.az_count
+
 }
 
 locals {

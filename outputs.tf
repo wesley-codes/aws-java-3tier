@@ -8,5 +8,13 @@ output "availability_zones" {
 }
 
 output "public_subnet_cidr" {
-  value = module.vpc.public_subnet_cidr
+  value = module.vpc.app_public_subnet_cidr
+}
+
+output "private_subnet_cidr" {
+  value = module.vpc.app_private_subnet_cidr
+}
+
+output "Elastic_ip" {
+  value = module.vpc.aws_eip
 }
