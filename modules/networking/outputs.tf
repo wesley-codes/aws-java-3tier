@@ -12,5 +12,14 @@ output "app_private_subnet_cidr" {
 }
 
 output "aws_eip" {
-  value = aws_eip.nat_eip.public_ip
+  value = aws_eip.nat_eip[*].public_ip
 }
+
+output "Internet_gateway" {
+  value = aws_internet_gateway.app_igw.id
+}
+
+output "Nat_gateway" {
+  value = aws_nat_gateway.app_nat_gateway[*].id
+}
+

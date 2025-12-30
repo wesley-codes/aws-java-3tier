@@ -15,7 +15,8 @@ variable "az_count" {
   description = "Number of AZ's"
 }
 
-variable "env" {
+variable "env-prefix" {
   type        = string
   description = "enviroment"
+  default     = "dev"
 }
