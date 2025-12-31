@@ -10,6 +10,13 @@ module "vpc" {
 
 }
 
+module "security" {
+  source   = "./modules/security"
+  vpc_id   = module.vpc.vpc_id
+  app_port = var.app_port
+  db_port  = var.db_port
+}
+
 locals {
   azs = slice(data.aws_availability_zones.available.names, 0, var.az_count)
 }

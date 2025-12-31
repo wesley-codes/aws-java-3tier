@@ -8,8 +8,11 @@ variable "az_count" {
   description = "Number of AZ's"
 }
 
+variable "app_port" {
+  type = number
+}
 
-# variable "availability_zones" {
-#   type        = list(string)
-#   description = "Using two availability zones"
-# }
+variable "db_port" {
+  type = number
+
+}
