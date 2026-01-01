@@ -29,7 +29,6 @@ resource "aws_security_group" "alb_sg" {
   }
 }
 
-
 #app security group
 resource "aws_security_group" "app_sg" {
   name        = "app_sg"
@@ -56,7 +55,6 @@ resource "aws_security_group" "app_sg" {
 }
 
 
-
 #DB security group
 resource "aws_security_group" "db_sg" {
   name        = "db_sg"
@@ -80,4 +78,35 @@ resource "aws_security_group" "db_sg" {
   tags = {
     Name = "db_sg_${var.env-prefix}"
   }
+}
+
+resource "aws_iam_role" "ec2_role" {
+  name = "ec2_app_role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Principal = {
+        Service = "ec2.amazonaws.com"
+      }
+      Action = "sts:AssumeRole"
+    }]
+
+  })
+}
+
+
+resource "aws_iam_role_policy_attachment" "cloud_watch_logs" {
+  role       = aws_iam_role.ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "secret_manger_read" {
+  role       = aws_iam_role.ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
+}
+
+resource "aws_iam_instance_profile" "ec2_profile" {
+  name = "app-ec2-instance-profile"
+  role = aws_iam_role.ec2_role.name
 }
