@@ -17,6 +17,12 @@ module "security" {
   db_port  = var.db_port
 }
 
+
+module "compute" {
+  source            = "./modules/compute"
+  alb_sg_id         = module.security.alb_sg_id
+  public_id_subnets = module.vpc.app_public_subnet_cidr
+}
 locals {
   azs = slice(data.aws_availability_zones.available.names, 0, var.az_count)
 }
