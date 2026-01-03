@@ -22,6 +22,7 @@ module "compute" {
   source            = "./modules/compute"
   alb_sg_id         = module.security.alb_sg_id
   public_id_subnets = module.vpc.app_public_subnet_cidr
+  vpc_id            = module.vpc.vpc_id
 }
 locals {
   azs = slice(data.aws_availability_zones.available.names, 0, var.az_count)

@@ -7,3 +7,8 @@ variable "public_id_subnets" {
   type        = list(string)
   description = "public id subnets"
 }
+
+variable "vpc_id" {
+  description = "vpc id"
+
+}
