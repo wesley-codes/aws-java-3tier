@@ -18,3 +18,8 @@ output "private_subnet_cidr" {
 output "Elastic_ip" {
   value = module.vpc.aws_eip
 }
+
+output "aws_target_group_arn" {
+  value = module.compute.launch_template_arn
+}
+

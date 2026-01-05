@@ -19,10 +19,15 @@ module "security" {
 
 
 module "compute" {
-  source            = "./modules/compute"
-  alb_sg_id         = module.security.alb_sg_id
-  public_id_subnets = module.vpc.app_public_subnet_cidr
-  vpc_id            = module.vpc.vpc_id
+  source                = "./modules/compute"
+  alb_sg_id             = module.security.alb_sg_id
+  public_id_subnets     = module.vpc.app_public_subnet_cidr
+  vpc_id                = module.vpc.vpc_id
+  availability_zone     = local.azs[0]
+  instance_type         = var.instance_type
+  instance_profile_name = module.security.iam_instance_profile_ec2_profile
+  app_sg_id             = module.security.app_sg_id
+  private_id_subnets    = module.vpc.app_private_subnet_cidr
 }
 locals {
   azs = slice(data.aws_availability_zones.available.names, 0, var.az_count)

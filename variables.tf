@@ -16,3 +16,10 @@ variable "db_port" {
   type = number
 
 }
+
+
+variable "instance_type" {
+  type        = string
+  description = "Instance type"
+}
+
