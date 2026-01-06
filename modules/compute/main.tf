@@ -58,17 +58,12 @@ resource "aws_launch_template" "app-server-launch-template" {
     capacity_reservation_preference = "open"
   }
 
-  cpu_options {
-    core_count       = 4
-    threads_per_core = 2
-  }
-
   credit_specification {
     cpu_credits = "standard"
   }
 
-  disable_api_stop        = true
-  disable_api_termination = true
+  disable_api_stop        = false
+  disable_api_termination = false
 
   ebs_optimized = true
 
@@ -97,13 +92,8 @@ resource "aws_launch_template" "app-server-launch-template" {
 
   network_interfaces {
     associate_public_ip_address = true
+    security_groups             = [var.app_sg_id]
   }
-  placement {
-    availability_zone = var.availability_zone
-  }
-
-  vpc_security_group_ids = ["${var.app_sg_id}"]
-
   tag_specifications {
     resource_type = "instance"
 
